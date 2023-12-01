@@ -8,7 +8,7 @@ abstract class Day(val id: Int, private val title: String) {
 
     private fun loadInputAsStrings(): List<String> = inputFileName().asString().asStringList()
 
-    private val input by lazy { loadInputAsStrings() }
+    private val input by lazy { loadInputAsStrings().filter { it.isNotBlank() } }
 
     fun solveDay() {
         println("--- Day ${this.id}: ${this.title} ---")
