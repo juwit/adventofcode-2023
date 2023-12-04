@@ -19,6 +19,7 @@ class AdventOfCode : Callable<Int> {
         val days: List<Day> = listOf(
                 Day1(),
                 Day2(),
+                Day3(),
         )
 
         val day = days.find { it.id == dayNumber } ?: throw IllegalArgumentException("could not find day #$dayNumber")
