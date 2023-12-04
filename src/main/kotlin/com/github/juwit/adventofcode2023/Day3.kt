@@ -10,7 +10,7 @@ class Day3: Day(3, "Gear Ratios") {
     }
 
     data class NumberCell(val value: Int, val x: Int, val y: Int, val length: Int) {
-        fun hasAdjacentSymbol(input: List<String>): Boolean{
+        fun hasAdjacentSymbol(input: List<String>, grid: Grid): Boolean{
             // build a rectangle
             val minX = maxOf(0, x-1)
             val minY = maxOf(0, y-1)
@@ -18,7 +18,9 @@ class Day3: Day(3, "Gear Ratios") {
             val maxY = minOf(input.size-1, y+1)
             for (i in minX..maxX){
                 for(j in minY..maxY){
-                    if( symbolRegex.matches(input[j][i].toString()) ) {
+                    val symbol = grid.symbols.find { it.x == i && it.y == j }
+                    if( symbol !== null ){
+                        symbol.addAdjacentNumber(this)
                         return true
                     }
                 }
@@ -27,7 +29,17 @@ class Day3: Day(3, "Gear Ratios") {
         }
     }
 
-    data class SymbolCell(val char: String, val x: Int, val y: Int)
+    data class SymbolCell(val char: String, val x: Int, val y: Int) {
+        val adjacentNumbers = mutableListOf<NumberCell>()
+
+        fun addAdjacentNumber(cell: NumberCell){
+            this.adjacentNumbers.add(cell)
+        }
+
+        fun isGear() = this.char == "*" && this.adjacentNumbers.size == 2
+
+        fun getGearRatio() = this.adjacentNumbers[0].value * this.adjacentNumbers[1].value
+    }
 
     fun parseGrid(input: List<String>): Grid{
         val grid = Grid()
@@ -45,13 +57,21 @@ class Day3: Day(3, "Gear Ratios") {
         return grid
     }
 
+
+
     override fun solvePart1(input: List<String>): Number {
         val grid = parseGrid(input)
-        return grid.numbers.filter { it.hasAdjacentSymbol(input) }.sumOf { it.value }
+        return grid.numbers.filter { it.hasAdjacentSymbol(input, grid) }.sumOf { it.value }
     }
 
     override fun solvePart2(input: List<String>): Number {
-        return 0
+        val grid = parseGrid(input)
+        grid.numbers.filter { it.hasAdjacentSymbol(input, grid) }.sumOf { it.value }
+
+        return grid.symbols
+                .filter { it.isGear() }
+                .map { println("$it - ${it.adjacentNumbers.map { it.value }} - ${it.getGearRatio()}"); it; }
+                .sumOf { it.getGearRatio() }
     }
 
 }
