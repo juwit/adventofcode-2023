@@ -8,7 +8,7 @@ import kotlin.system.exitProcess
 @CommandLine.Command(name = "adventofcode-2023")
 class AdventOfCode : Callable<Int> {
 
-    @CommandLine.Option(names = ["-d", "--day"], description = ["the day to run"], required = true)
+    @CommandLine.Option(names = ["-d", "--day"], description = ["the day to run"])
     private var dayNumber = 0
 
     override fun call(): Int {
@@ -17,10 +17,15 @@ class AdventOfCode : Callable<Int> {
 
         // autoloading all days
         val days: List<Day> = listOf(
-                Day1(),
-                Day2(),
-                Day3(),
+            Day1(),
+            Day2(),
+            Day3(),
+            Day4(),
         )
+
+        if (dayNumber == 0) {
+            dayNumber = days.size
+        }
 
         val day = days.find { it.id == dayNumber } ?: throw IllegalArgumentException("could not find day #$dayNumber")
         day.solveDay()
