@@ -88,4 +88,9 @@ class Day5Test {
         assertThat(Day5().solvePart1(exampleInput)).isEqualTo(35L)
     }
 
+    @Test
+    fun shouldSolvePart2(){
+        assertThat(Day5().solvePart2(exampleInput)).isEqualTo(46L)
+    }
+
 }
