@@ -70,7 +70,7 @@ class Day3: Day(3, "Gear Ratios") {
 
         return grid.symbols
                 .filter { it.isGear() }
-                .map { println("$it - ${it.adjacentNumbers.map { it.value }} - ${it.getGearRatio()}"); it; }
+//                .map { println("$it - ${it.adjacentNumbers.map { it.value }} - ${it.getGearRatio()}"); it; }
                 .sumOf { it.getGearRatio() }
     }
 
