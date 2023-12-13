@@ -22,7 +22,8 @@ class AdventOfCode : Callable<Int> {
             Day3(),
             Day4(),
             Day5(),
-            Day6()
+            Day6(),
+            Day7()
         )
 
         if (dayNumber == 0) {
