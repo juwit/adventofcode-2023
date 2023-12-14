@@ -15,7 +15,7 @@ class Day8Test {
         EEE = (EEE, EEE)
         GGG = (GGG, GGG)
         ZZZ = (ZZZ, ZZZ)
-    """.trimIndent().asStringList()
+    """.trimIndent().asStringList().filterNot { it.isBlank() }
 
     val secondExampleInput = """
         LLR
@@ -23,11 +23,25 @@ class Day8Test {
         AAA = (BBB, BBB)
         BBB = (AAA, ZZZ)
         ZZZ = (ZZZ, ZZZ)
-    """.trimIndent().asStringList()
+    """.trimIndent().asStringList().filterNot { it.isBlank() }
+
+    val ghostInput = """
+        LR
+
+        11A = (11B, XXX)
+        11B = (XXX, 11Z)
+        11Z = (11B, XXX)
+        22A = (22B, XXX)
+        22B = (22C, 22C)
+        22C = (22Z, 22Z)
+        22Z = (22B, 22B)
+        XXX = (XXX, XXX)
+
+    """.trimIndent().trimIndent().asStringList().filterNot { it.isBlank() }
 
     @Test
     fun shouldParseNodesGraph(){
-        val network = Day8.Network(exampleInput.subList(2, exampleInput.size))
+        val network = Day8.Network(exampleInput.subList(1, exampleInput.size))
 
         assertThat(network.nodesMap).hasSize(7)
         assertThat(network.nodesMap.get("AAA")).isEqualTo(Pair("BBB", "CCC"))
@@ -35,13 +49,13 @@ class Day8Test {
 
     @Test
     fun shouldWalkTheGraphToZZZ(){
-        val network = Day8.Network(exampleInput.subList(2, exampleInput.size))
+        val network = Day8.Network(exampleInput.subList(1, exampleInput.size))
         assertThat(network.navigate("RL")).isEqualTo(2)
     }
 
     @Test
     fun shouldWalkTheSecondGraphToZZZ(){
-        val network = Day8.Network(secondExampleInput.subList(2, secondExampleInput.size))
+        val network = Day8.Network(secondExampleInput.subList(1, secondExampleInput.size))
         assertThat(network.navigate("LLR")).isEqualTo(6)
     }
 
@@ -50,5 +64,17 @@ class Day8Test {
         assertThat(Day8().solvePart1(exampleInput)).isEqualTo(2L)
         assertThat(Day8().solvePart1(secondExampleInput)).isEqualTo(6L)
     }
+
+    @Test
+    fun shouldGhostWalkTheGraph(){
+        val network = Day8.Network(ghostInput.subList(1, ghostInput.size))
+        assertThat(network.ghostNavigate("LR")).isEqualTo(6)
+    }
+
+    @Test
+    fun shouldSolvePart2(){
+        assertThat(Day8().solvePart2(ghostInput)).isEqualTo(6L)
+    }
+
 
 }
