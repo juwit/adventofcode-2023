@@ -15,7 +15,7 @@ class AdventOfCode : Callable<Int> {
         println("[AdventOfCode - 2023]")
         println()
 
-        // autoloading all days
+
         val days: List<Day> = listOf(
             Day1(),
             Day2(),
@@ -23,7 +23,8 @@ class AdventOfCode : Callable<Int> {
             Day4(),
             Day5(),
             Day6(),
-            Day7()
+            Day7(),
+            Day8()
         )
 
         if (dayNumber == 0) {
