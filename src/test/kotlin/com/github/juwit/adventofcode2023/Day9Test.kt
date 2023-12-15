@@ -28,4 +28,16 @@ class Day9Test {
         assertThat(Day9().solvePart1(exampleInput)).isEqualTo(114L)
     }
 
+    @Test
+    fun shouldFinPreviousValue() {
+        assertThat(Day9.History(exampleInput[0]).previousValue()).isEqualTo(-3L)
+        assertThat(Day9.History(exampleInput[1]).previousValue()).isEqualTo(0L)
+        assertThat(Day9.History(exampleInput[2]).previousValue()).isEqualTo(5L)
+    }
+
+    @Test
+    fun shouldSolvePart2() {
+        assertThat(Day9().solvePart2(exampleInput)).isEqualTo(2L)
+    }
+
 }

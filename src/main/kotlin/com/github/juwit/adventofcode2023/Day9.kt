@@ -17,6 +17,15 @@ class Day9 : Day(9, "Mirage Maintenance") {
             return last + History(zipped).nextValue()
         }
 
+        fun previousValue(): Long {
+            val first = values.first()
+            val zipped = values.zipWithNext(::difference)
+            if (zipped.all { it == 0L }) {
+                return first
+            }
+            return first - History(zipped).previousValue()
+        }
+
     }
 
 
@@ -26,6 +35,7 @@ class Day9 : Day(9, "Mirage Maintenance") {
     }
 
     override fun solvePart2(input: List<String>): Number {
-        TODO("Not yet implemented")
+        return input.map { History(it) }
+            .sumOf { it.previousValue() }
     }
 }
