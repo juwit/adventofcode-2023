@@ -68,7 +68,7 @@ class Day8Test {
     @Test
     fun shouldGhostWalkTheGraph(){
         val network = Day8.Network(ghostInput.subList(1, ghostInput.size))
-        assertThat(network.ghostNavigate("LR")).isEqualTo(6)
+        assertThat(network.ghostNavigate("AAA", "LR")).isEqualTo(6)
     }
 
     @Test
