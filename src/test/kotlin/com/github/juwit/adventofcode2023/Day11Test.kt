@@ -55,13 +55,19 @@ class Day11Test {
     @Test
     fun itShouldFindShortestDistanceBetweenAllGalaxies(){
         val universe = Day11.Universe(input)
-        universe.expand()
+        universe.expand(2)
         assertThat(universe.allShortestDistances()).isEqualTo(374)
     }
 
     @Test
     fun itShouldSolvePart1(){
         assertThat(Day11().solvePart1(input)).isEqualTo(374L)
+    }
+
+    @Test
+    fun itShouldFindShortestDistanceBetweenAllGalaxiesWithDifferentExpansionFactors(){
+        assertThat(Day11.Universe(input).expand(10).allShortestDistances()).isEqualTo(1030)
+        assertThat(Day11.Universe(input).expand(100).allShortestDistances()).isEqualTo(8410)
     }
 
 }

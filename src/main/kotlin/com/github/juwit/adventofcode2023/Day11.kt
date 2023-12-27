@@ -18,19 +18,19 @@ class Day11: Day(11, "Cosmic Expansion") {
             }
         }
 
-        fun expand(): Universe {
+        fun expand(expansion: Int = 2): Universe {
             // find lines without galaxies
             input.indices
                 .filter { galaxies.none { gal -> gal.y == it } }
                 // expanding in reverse order to prevent shifting
                 .reversed()
-                .forEach { galaxies.filter { gal -> gal.y > it }.forEach { gal -> gal.y++ } }
+                .forEach { galaxies.filter { gal -> gal.y > it }.forEach { gal -> gal.y+=expansion-1 } }
             // find columns without galaxies
             input[0].indices
                 .filter { galaxies.none { gal -> gal.x == it } }
                 // expanding in reverse order to prevent shifting
                 .reversed()
-                .forEach { galaxies.filter { gal -> gal.x > it }.forEach { gal -> gal.x++ } }
+                .forEach { galaxies.filter { gal -> gal.x > it }.forEach { gal -> gal.x+=expansion-1 } }
             return this
         }
 
@@ -58,6 +58,8 @@ class Day11: Day(11, "Cosmic Expansion") {
     }
 
     override fun solvePart2(input: List<String>): Number {
-        TODO("Not yet implemented")
+        return Universe(input)
+            .expand(1_000_000)
+            .allShortestDistances()
     }
 }
