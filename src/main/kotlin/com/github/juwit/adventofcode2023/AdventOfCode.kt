@@ -26,10 +26,11 @@ class AdventOfCode : Callable<Int> {
             Day7(),
             Day8(),
             Day9(),
+            Day11()
         )
 
         if (dayNumber == 0) {
-            dayNumber = days.size
+            dayNumber = days.last().id
         }
 
         val day = days.find { it.id == dayNumber } ?: throw IllegalArgumentException("could not find day #$dayNumber")
